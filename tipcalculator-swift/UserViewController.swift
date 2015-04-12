@@ -10,19 +10,58 @@ import UIKit
 
 class UserViewController: UIViewController {
 
+    @IBOutlet weak var defaultTipLabel: UILabel!
+    @IBOutlet weak var defaultTaxLabel: UILabel!
+    @IBOutlet weak var defaultTipField: UITextField!
+    @IBOutlet weak var defaultTaxField: UITextField!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
+
+        // Load the default values
+        var defaults = NSUserDefaults.standardUserDefaults()
+        defaults.synchronize()
+        
+        if let defaultTaxValue = defaults.objectForKey("defaultTax") as? String{
+            defaultTaxLabel.text = defaultTaxValue
+        } else {
+            defaultTaxLabel.text = "0.0"
+            defaults.setObject(defaultTaxLabel.text, forKey: "defaultTax")
+        }
+
+        if let defaultTipValue = defaults.objectForKey("defaultTip") as? String{
+            defaultTipLabel.text = defaultTipValue
+        } else {
+            defaultTipLabel.text = "0.0"
+            defaults.setObject(defaultTipLabel.text, forKey: "defaultTip")
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    @IBAction func didEditTip(sender: AnyObject) {
+        var defaults = NSUserDefaults.standardUserDefaults()
+
+        // TODO store tip as float
+        defaults.setObject(defaultTipField.text, forKey: "defaultTip")
+        defaults.synchronize()
+    }
+    
+    @IBAction func didEditTax(sender: AnyObject) {
+        var defaults = NSUserDefaults.standardUserDefaults()
+        
+        // TODO store tax as float
+        defaults.setObject(defaultTaxField.text, forKey: "defaultTax")
+        defaults.synchronize()
+    }
     
     @IBAction func didTouchDone(sender: AnyObject) {
-    dismissViewControllerAnimated(true, completion: nil)
+        NSLog("didTouchDone")
+        // Go back
+        dismissViewControllerAnimated(true, completion: nil)
     }
 
     /*
