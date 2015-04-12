@@ -23,19 +23,11 @@ class UserViewController: UIViewController {
         var defaults = NSUserDefaults.standardUserDefaults()
         defaults.synchronize()
         
-        if let defaultTaxValue = defaults.objectForKey("defaultTax") as? String{
-            defaultTaxLabel.text = defaultTaxValue
-        } else {
-            defaultTaxLabel.text = "0.0"
-            defaults.setObject(defaultTaxLabel.text, forKey: "defaultTax")
-        }
-
-        if let defaultTipValue = defaults.objectForKey("defaultTip") as? String{
-            defaultTipLabel.text = defaultTipValue
-        } else {
-            defaultTipLabel.text = "0.0"
-            defaults.setObject(defaultTipLabel.text, forKey: "defaultTip")
-        }
+        let defaultTaxValue = defaults.floatForKey("defaultTax")
+        defaultTaxLabel.text = NSString(format: "%.2f", defaultTaxValue)
+        
+        let defaultTipValue = defaults.floatForKey("defaultTip")
+        defaultTipLabel.text = NSString(format: "%.2f", defaultTipValue)
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,17 +36,17 @@ class UserViewController: UIViewController {
     }
     @IBAction func didEditTip(sender: AnyObject) {
         var defaults = NSUserDefaults.standardUserDefaults()
-
-        // TODO store tip as float
-        defaults.setObject(defaultTipField.text, forKey: "defaultTip")
+        
+        let defaultTipValue = (defaultTipField.text as NSString).floatValue
+        defaults.setFloat(defaultTipValue, forKey: "defaultTip")
         defaults.synchronize()
     }
     
     @IBAction func didEditTax(sender: AnyObject) {
         var defaults = NSUserDefaults.standardUserDefaults()
         
-        // TODO store tax as float
-        defaults.setObject(defaultTaxField.text, forKey: "defaultTax")
+        let defaultTaxValue = (defaultTaxField.text as NSString).floatValue
+        defaults.setObject(defaultTaxValue, forKey: "defaultTax")
         defaults.synchronize()
     }
     
