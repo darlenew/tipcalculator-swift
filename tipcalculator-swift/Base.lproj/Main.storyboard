@@ -97,13 +97,6 @@
                                     <action selector="taxStepperChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="mMf-KZ-Z3U"/>
                                 </connections>
                             </stepper>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20%" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1z3-e7-a8y">
-                                <rect key="frame" x="26" y="209" width="78" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" id="gqP-eX-Wnz">
                                 <rect key="frame" x="113" y="205" width="94" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -111,6 +104,13 @@
                                     <action selector="tipStepperChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="0jY-hp-78Z"/>
                                 </connections>
                             </stepper>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20%" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1z3-e7-a8y">
+                                <rect key="frame" x="26" y="209" width="78" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -121,7 +121,7 @@
                     <navigationItem key="navigationItem" title="Tip Calculator" id="Bvh-BA-Py8">
                         <barButtonItem key="rightBarButtonItem" title="Settings" id="B9z-V4-61C">
                             <connections>
-                                <segue destination="xah-vX-jXc" kind="modal" modalTransitionStyle="flipHorizontal" id="UJd-Xw-fNw"/>
+                                <segue destination="xah-vX-jXc" kind="modal" identifier="settingsSegue" modalTransitionStyle="flipHorizontal" id="UJd-Xw-fNw"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

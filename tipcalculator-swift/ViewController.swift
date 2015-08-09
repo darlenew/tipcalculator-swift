@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UserViewControllerDelegate {
 
     @IBOutlet weak var billField: UITextField!
     @IBOutlet weak var taxLabel: UILabel!
@@ -24,10 +24,17 @@ class ViewController: UIViewController {
         var defaults = NSUserDefaults.standardUserDefaults()
         let defaultTaxValue = defaults.doubleForKey("defaultTax")
         let defaultTipValue = defaults.doubleForKey("defaultTip")
+        println(defaultTaxValue)
+        println(defaultTipValue)
         taxStepper.value = defaultTaxValue
         tipStepper.value = defaultTipValue
         taxSliderLabel.text = String(format: "%.2f%%", taxStepper.value)
         tipSliderLabel.text = String(format: "%.2f%%", tipStepper.value)
+        
+        taxSliderLabel.text = String(format: "%.2f%%", taxStepper.value)
+        tipSliderLabel.text = String(format: "%.2f%%", tipStepper.value)
+
+        println("finished setting up defaults")
     }
     
     override func viewDidLoad() {
@@ -48,7 +55,6 @@ class ViewController: UIViewController {
     func updateTotal() {
         var billAmount = (billField.text as NSString).doubleValue
         
-        // TODO make sure taxSlider.value is not 0
         let taxPercentage = taxStepper.value / 100
         let tipPercentage = tipStepper.value / 100
         
@@ -57,14 +63,11 @@ class ViewController: UIViewController {
         
         var total = billAmount + taxAmount + tipAmount
         
-        // basic string formatting
-        //tipLabel.text = "$\(tip)"
-        //totalLabel.text = "$\(total)"
-        
         // fancier string formatting
         taxLabel.text = String(format: "$%.2f", taxAmount)
         tipLabel.text = String(format: "$%.2f", tipAmount)
         totalLabel.text = String(format: "$%.2f", total)
+        println("updateTotal finished")
     }
     
     @IBAction func onEditingChanged(sender: AnyObject) {
@@ -92,5 +95,17 @@ class ViewController: UIViewController {
         view.endEditing(true)
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        if segue.identifier == "settingsSegue" {
+            let vc = segue.destinationViewController as UserViewController
+            vc.delegate = self
+        }
+    }
+    
+    func myVCDidFinish(controller: UserViewController, text: String) {
+        // update tax and tip defaults, they may have changed in the settings
+        setDefaultRates()
+        updateTotal()
+    }
 }
 

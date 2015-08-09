@@ -8,12 +8,18 @@
 
 import UIKit
 
-class UserViewController: UIViewController {
+protocol UserViewControllerDelegate{
+    func myVCDidFinish(controller:UserViewController, text:String)
+}
 
+class UserViewController: UIViewController {
+    var delegate:UserViewControllerDelegate? = nil
+    var foo = "foo"
     @IBOutlet weak var defaultTipLabel: UILabel!
     @IBOutlet weak var defaultTaxLabel: UILabel!
     @IBOutlet weak var defaultTipField: UITextField!
     @IBOutlet weak var defaultTaxField: UITextField!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,23 +41,44 @@ class UserViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     @IBAction func didEditTip(sender: AnyObject) {
-        var defaults = NSUserDefaults.standardUserDefaults()
-        
-        let defaultTipValue = (defaultTipField.text as NSString).doubleValue
-        defaults.setDouble(defaultTipValue, forKey: "defaultTip")
-        defaults.synchronize()
+//        var defaults = NSUserDefaults.standardUserDefaults()
+//        
+//        let defaultTipValue = (defaultTipField.text as NSString).doubleValue
+//        defaults.setDouble(defaultTipValue, forKey: "defaultTip")
+//        defaults.synchronize()
+//        println("Set tip to %d", defaultTipValue)
     }
     
     @IBAction func didEditTax(sender: AnyObject) {
-        var defaults = NSUserDefaults.standardUserDefaults()
-        
-        let defaultTaxValue = (defaultTaxField.text as NSString).doubleValue
-        defaults.setDouble(defaultTaxValue, forKey: "defaultTax")
-        defaults.synchronize()
+//        var defaults = NSUserDefaults.standardUserDefaults()
+//        
+//        let defaultTaxValue = (defaultTaxField.text as NSString).doubleValue
+//        defaults.setDouble(defaultTaxValue, forKey: "defaultTax")
+//        defaults.synchronize()
+//        println("Set tax to %d", defaultTaxValue)
     }
     
     @IBAction func didTouchDone(sender: AnyObject) {
         NSLog("didTouchDone")
+
+        var defaults = NSUserDefaults.standardUserDefaults()
+        
+        let defaultTaxValue = (defaultTaxField.text as NSString).doubleValue
+        defaults.setDouble(defaultTaxValue, forKey: "defaultTax")
+        println("Set tax to %d", defaultTaxValue)
+
+        let defaultTipValue = (defaultTipField.text as NSString).doubleValue
+        defaults.setDouble(defaultTipValue, forKey: "defaultTip")
+        println("Set tip to %d", defaultTipValue)
+
+        defaults.synchronize()
+        if (delegate != nil) {
+            println("delegate is not nil")
+            delegate!.myVCDidFinish(self, text: foo)
+        } else {
+            println("delegate is nil")
+        }
+
         // Go back
         dismissViewControllerAnimated(true, completion: nil)
     }
@@ -67,3 +94,4 @@ class UserViewController: UIViewController {
     */
 
 }
+
