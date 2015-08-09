@@ -23,10 +23,10 @@ class UserViewController: UIViewController {
         var defaults = NSUserDefaults.standardUserDefaults()
         defaults.synchronize()
         
-        let defaultTaxValue = defaults.floatForKey("defaultTax")
+        let defaultTaxValue = defaults.doubleForKey("defaultTax")
         defaultTaxLabel.text = NSString(format: "%.2f", defaultTaxValue)
         
-        let defaultTipValue = defaults.floatForKey("defaultTip")
+        let defaultTipValue = defaults.doubleForKey("defaultTip")
         defaultTipLabel.text = NSString(format: "%.2f", defaultTipValue)
     }
 
@@ -37,16 +37,16 @@ class UserViewController: UIViewController {
     @IBAction func didEditTip(sender: AnyObject) {
         var defaults = NSUserDefaults.standardUserDefaults()
         
-        let defaultTipValue = (defaultTipField.text as NSString).floatValue
-        defaults.setFloat(defaultTipValue, forKey: "defaultTip")
+        let defaultTipValue = (defaultTipField.text as NSString).doubleValue
+        defaults.setDouble(defaultTipValue, forKey: "defaultTip")
         defaults.synchronize()
     }
     
     @IBAction func didEditTax(sender: AnyObject) {
         var defaults = NSUserDefaults.standardUserDefaults()
         
-        let defaultTaxValue = (defaultTaxField.text as NSString).floatValue
-        defaults.setObject(defaultTaxValue, forKey: "defaultTax")
+        let defaultTaxValue = (defaultTaxField.text as NSString).doubleValue
+        defaults.setDouble(defaultTaxValue, forKey: "defaultTax")
         defaults.synchronize()
     }
     
