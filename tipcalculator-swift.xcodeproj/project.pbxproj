@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		29296B921B7B00FA00173453 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29296B911B7B00FA00173453 /* SettingsTableViewController.swift */; };
 		297329D61AD06911003FCE03 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297329D51AD06911003FCE03 /* AppDelegate.swift */; };
 		297329D81AD06911003FCE03 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297329D71AD06911003FCE03 /* ViewController.swift */; };
 		297329DB1AD06911003FCE03 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 297329D91AD06911003FCE03 /* Main.storyboard */; };
@@ -27,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		29296B911B7B00FA00173453 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsTableViewController.swift; path = ../SettingsTableViewController.swift; sourceTree = "<group>"; };
 		297329D01AD06911003FCE03 /* tipcalculator-swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tipcalculator-swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		297329D41AD06911003FCE03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		297329D51AD06911003FCE03 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 				297329D71AD06911003FCE03 /* ViewController.swift */,
 				297329D91AD06911003FCE03 /* Main.storyboard */,
 				29B36F4C1AD11E1000166CB0 /* UserViewController.swift */,
+				29296B911B7B00FA00173453 /* SettingsTableViewController.swift */,
 				297329DC1AD06911003FCE03 /* Images.xcassets */,
 				297329DE1AD06911003FCE03 /* LaunchScreen.xib */,
 				297329D31AD06911003FCE03 /* Supporting Files */,
@@ -215,6 +218,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29296B921B7B00FA00173453 /* SettingsTableViewController.swift in Sources */,
 				297329D81AD06911003FCE03 /* ViewController.swift in Sources */,
 				29B36F4D1AD11E1000166CB0 /* UserViewController.swift in Sources */,
 				297329D61AD06911003FCE03 /* AppDelegate.swift in Sources */,
@@ -342,10 +346,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "tipcalculator-swift/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -353,6 +359,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "tipcalculator-swift/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
