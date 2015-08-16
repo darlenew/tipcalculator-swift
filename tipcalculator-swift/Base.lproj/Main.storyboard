@@ -221,10 +221,22 @@
         <!--Tip-->
         <scene sceneID="e9o-cH-kSZ">
             <objects>
-                <viewController id="6Zi-mb-eho" sceneMemberID="viewController">
+                <viewController id="6Zi-mb-eho" customClass="TipSettingsViewController" customModule="tipcalculator_swift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8jh-69-rYc">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" id="Gaf-qd-1Ah">
+                                <rect key="frame" x="46" y="169" width="234" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="First"/>
+                                    <segment title="Second"/>
+                                    <segment title=""/>
+                                    <segment title=""/>
+                                </segments>
+                            </segmentedControl>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Tip" id="k8g-Hs-kyi"/>
@@ -233,10 +245,10 @@
             </objects>
             <point key="canvasLocation" x="1746" y="732"/>
         </scene>
-        <!--Tax-->
+        <!--TaxSettingsViewController-->
         <scene sceneID="iBE-OB-ePn">
             <objects>
-                <viewController id="cPN-H5-YYN" sceneMemberID="viewController">
+                <viewController title="TaxSettingsViewController" id="cPN-H5-YYN" customClass="TaxSettingsViewController" customModule="tipcalculator_swift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nh0-F4-4hA">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -250,10 +262,31 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" continuous="NO" maximumValue="100" stepValue="0.25" id="p6r-wf-glE">
+                                <rect key="frame" x="163" y="118" width="94" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="valueTaxStepperChanged:" destination="cPN-H5-YYN" eventType="valueChanged" id="OIJ-Nt-jCJ"/>
+                                </connections>
+                            </stepper>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="9.75%" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" clearButtonMode="unlessEditing" id="VxH-6O-49p">
+                                <rect key="frame" x="64" y="117" width="97" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="decimalPad" enablesReturnKeyAutomatically="YES"/>
+                                <connections>
+                                    <action selector="didEndEditingTaxLabel:" destination="cPN-H5-YYN" eventType="editingDidEnd" id="7gr-yN-ei8"/>
+                                    <action selector="didEndOnExitTaxValue:" destination="cPN-H5-YYN" eventType="editingDidEndOnExit" id="yTy-ag-ZDV"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Tax" id="ahT-hJ-zsh"/>
+                    <connections>
+                        <outlet property="taxLabel" destination="VxH-6O-49p" id="wsw-ph-wfp"/>
+                        <outlet property="taxStepper" destination="p6r-wf-glE" id="rjc-Fu-tjP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="44L-2O-rQ8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
