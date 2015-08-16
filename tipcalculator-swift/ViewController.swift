@@ -104,6 +104,7 @@ class ViewController: UIViewController, UserViewControllerDelegate {
     
     func myVCDidFinish(controller: UserViewController, text: String) {
         // update tax and tip defaults, they may have changed in the settings
+        println("myVCDidFinish")
         setDefaultRates()
         updateTotal()
     }

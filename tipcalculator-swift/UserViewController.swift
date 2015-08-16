@@ -15,8 +15,6 @@ protocol UserViewControllerDelegate{
 class UserViewController: UIViewController {
     var delegate:UserViewControllerDelegate? = nil
     var foo = "foo"
-    @IBOutlet weak var defaultTipLabel: UILabel!
-    @IBOutlet weak var defaultTaxLabel: UILabel!
     @IBOutlet weak var defaultTipField: UITextField!
     @IBOutlet weak var defaultTaxField: UITextField!
     
@@ -30,10 +28,10 @@ class UserViewController: UIViewController {
         defaults.synchronize()
         
         let defaultTaxValue = defaults.doubleForKey("defaultTax")
-        defaultTaxLabel.text = NSString(format: "%.2f", defaultTaxValue)
+        defaultTaxField.text = NSString(format: "%.2f", defaultTaxValue)
         
         let defaultTipValue = defaults.doubleForKey("defaultTip")
-        defaultTipLabel.text = NSString(format: "%.2f", defaultTipValue)
+        defaultTipField.text = NSString(format: "%.2f", defaultTipValue)
     }
 
     override func didReceiveMemoryWarning() {
@@ -58,8 +56,9 @@ class UserViewController: UIViewController {
 //        println("Set tax to %d", defaultTaxValue)
     }
     
-    @IBAction func didTouchDone(sender: AnyObject) {
-        NSLog("didTouchDone")
+    override func viewWillDisappear(animated: Bool) {
+        //@IBAction func didTouchDone(sender: AnyObject) {
+        //    NSLog("didTouchDone")
 
         var defaults = NSUserDefaults.standardUserDefaults()
         
@@ -80,7 +79,7 @@ class UserViewController: UIViewController {
         }
 
         // Go back
-        dismissViewControllerAnimated(true, completion: nil)
+        //dismissViewControllerAnimated(true, completion: nil)
     }
 
     /*
