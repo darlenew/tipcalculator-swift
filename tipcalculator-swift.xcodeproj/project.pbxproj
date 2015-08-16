@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		29296B921B7B00FA00173453 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29296B911B7B00FA00173453 /* SettingsTableViewController.swift */; };
+		29296B9A1B801A1300173453 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29296B991B801A1300173453 /* SettingsViewController.swift */; };
 		297329D61AD06911003FCE03 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297329D51AD06911003FCE03 /* AppDelegate.swift */; };
 		297329D81AD06911003FCE03 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297329D71AD06911003FCE03 /* ViewController.swift */; };
 		297329DB1AD06911003FCE03 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 297329D91AD06911003FCE03 /* Main.storyboard */; };
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		29296B911B7B00FA00173453 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsTableViewController.swift; path = ../SettingsTableViewController.swift; sourceTree = "<group>"; };
+		29296B991B801A1300173453 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		297329D01AD06911003FCE03 /* tipcalculator-swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tipcalculator-swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		297329D41AD06911003FCE03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		297329D51AD06911003FCE03 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 		297329C71AD06910003FCE03 = {
 			isa = PBXGroup;
 			children = (
+				29296B991B801A1300173453 /* SettingsViewController.swift */,
 				297329D21AD06911003FCE03 /* tipcalculator-swift */,
 				297329E81AD06911003FCE03 /* tipcalculator-swiftTests */,
 				297329D11AD06911003FCE03 /* Products */,
@@ -221,6 +224,7 @@
 				29296B921B7B00FA00173453 /* SettingsTableViewController.swift in Sources */,
 				297329D81AD06911003FCE03 /* ViewController.swift in Sources */,
 				29B36F4D1AD11E1000166CB0 /* UserViewController.swift in Sources */,
+				29296B9A1B801A1300173453 /* SettingsViewController.swift in Sources */,
 				297329D61AD06911003FCE03 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

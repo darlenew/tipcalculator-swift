@@ -121,7 +121,7 @@
                     <navigationItem key="navigationItem" title="Tip Calculator" id="Bvh-BA-Py8">
                         <barButtonItem key="rightBarButtonItem" title="Settings" id="B9z-V4-61C">
                             <connections>
-                                <segue destination="YlX-s4-Ze2" kind="push" identifier="Settings" id="KmW-mC-DVu"/>
+                                <segue destination="aYa-h7-SiA" kind="push" id="gS6-Us-ebW"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -143,121 +143,33 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="851" y="301"/>
+            <point key="canvasLocation" x="677" y="301"/>
         </scene>
         <!--Settings-->
-        <scene sceneID="gei-b5-55s">
+        <scene sceneID="cMg-3o-BzB">
             <objects>
-                <tableViewController id="YlX-s4-Ze2" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" sectionIndexMinimumDisplayRowCount="2" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="yfY-ya-UYV">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <sections>
-                            <tableViewSection id="fYw-K8-clw">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="taxCell" textLabel="hxX-Zd-Lj3" detailTextLabel="BW5-Lt-Hcs" style="IBUITableViewCellStyleValue1" id="uz4-Zx-3mx" userLabel="taxCell">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uz4-Zx-3mx" id="tGc-E1-jF7">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Tax" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hxX-Zd-Lj3">
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="9.75%" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BW5-Lt-Hcs">
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="cPN-H5-YYN" kind="push" identifier="taxSettingsSegue" id="9Sk-sw-iAE"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="tipCell" textLabel="wtl-ep-ta1" detailTextLabel="CAF-HV-I4R" style="IBUITableViewCellStyleValue1" id="Og0-Nn-m9t" userLabel="tipCell">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Og0-Nn-m9t" id="9rF-Ed-JbO">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Tip" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wtl-ep-ta1">
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="20%" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CAF-HV-I4R">
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="6Zi-mb-eho" kind="push" id="ob0-2x-gzP"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                        </sections>
-                        <connections>
-                            <outlet property="dataSource" destination="YlX-s4-Ze2" id="RXd-gW-LQN"/>
-                            <outlet property="delegate" destination="YlX-s4-Ze2" id="nli-HB-LnN"/>
-                        </connections>
-                    </tableView>
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Settings" id="wc0-pB-wr7"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="2QU-n8-L6P" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1262" y="301"/>
-        </scene>
-        <!--Tip-->
-        <scene sceneID="e9o-cH-kSZ">
-            <objects>
-                <viewController id="6Zi-mb-eho" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8jh-69-rYc">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Tip" id="k8g-Hs-kyi"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="sp1-Vz-hOI" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1746" y="732"/>
-        </scene>
-        <!--Tax-->
-        <scene sceneID="iBE-OB-ePn">
-            <objects>
-                <viewController id="cPN-H5-YYN" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="nh0-F4-4hA">
+                <viewController id="aYa-h7-SiA" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Pe9-dR-crC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" id="H9u-aq-mPJ">
+                            <navigationBar contentMode="scaleToFill" id="TFX-bZ-rN2">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
-                                    <navigationItem title="Tax Settings" id="SSL-ds-anV">
-                                        <barButtonItem key="backBarButtonItem" title="Back" id="bte-bI-5wg"/>
-                                    </navigationItem>
+                                    <navigationItem title="Title" id="Gw5-Ep-NAF"/>
                                 </items>
                             </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Tax" id="ahT-hJ-zsh"/>
+                    <navigationItem key="navigationItem" title="Settings" id="BL0-uK-3Cs">
+                        <barButtonItem key="backBarButtonItem" title="Tip Calculator" id="BUH-eY-Z18"/>
+                    </navigationItem>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="44L-2O-rQ8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nPq-DZ-Y4r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1746" y="18"/>
+            <point key="canvasLocation" x="1140" y="301"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ol4-gg-OKk">
