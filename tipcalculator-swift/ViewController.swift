@@ -97,7 +97,7 @@ class ViewController: UIViewController, UserViewControllerDelegate {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if segue.identifier == "settingsSegue" {
-            let vc = segue.destinationViewController as UserViewController
+            let vc = segue.destinationViewController as! UserViewController
             vc.delegate = self
         }
     }

@@ -13,6 +13,7 @@
 		297329DD1AD06911003FCE03 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 297329DC1AD06911003FCE03 /* Images.xcassets */; };
 		297329E01AD06911003FCE03 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 297329DE1AD06911003FCE03 /* LaunchScreen.xib */; };
 		297329EC1AD06911003FCE03 /* tipcalculator_swiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297329EB1AD06911003FCE03 /* tipcalculator_swiftTests.swift */; };
+		297B40FA1B80648D00061358 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 297B40F91B80648D00061358 /* CoreLocation.framework */; };
 		29B36F4D1AD11E1000166CB0 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B36F4C1AD11E1000166CB0 /* UserViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +38,7 @@
 		297329E51AD06911003FCE03 /* tipcalculator-swiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "tipcalculator-swiftTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		297329EA1AD06911003FCE03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		297329EB1AD06911003FCE03 /* tipcalculator_swiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tipcalculator_swiftTests.swift; sourceTree = "<group>"; };
+		297B40F91B80648D00061358 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		29B36F4C1AD11E1000166CB0 /* UserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -45,6 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				297B40FA1B80648D00061358 /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +64,7 @@
 		297329C71AD06910003FCE03 = {
 			isa = PBXGroup;
 			children = (
+				297B40F91B80648D00061358 /* CoreLocation.framework */,
 				297329D21AD06911003FCE03 /* tipcalculator-swift */,
 				297329E81AD06911003FCE03 /* tipcalculator-swiftTests */,
 				297329D11AD06911003FCE03 /* Products */,
