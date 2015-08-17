@@ -7,16 +7,16 @@
 //
 
 import UIKit
+import CoreLocation
 
 protocol UserViewControllerDelegate{
     func myVCDidFinish(controller:UserViewController, text:String)
 }
 
-class UserViewController: UIViewController {
+class UserViewController: UIViewController, CLLocationManagerDelegate {
     var delegate:UserViewControllerDelegate? = nil
-    var foo = "foo"
-    @IBOutlet weak var defaultTipLabel: UILabel!
-    @IBOutlet weak var defaultTaxLabel: UILabel!
+    let locationManager = CLLocationManager()
+    var foo = "foo" // TODO get rid of this
     @IBOutlet weak var defaultTipField: UITextField!
     @IBOutlet weak var defaultTaxField: UITextField!
     
@@ -30,10 +30,10 @@ class UserViewController: UIViewController {
         defaults.synchronize()
         
         let defaultTaxValue = defaults.doubleForKey("defaultTax")
-        defaultTaxLabel.text = NSString(format: "%.2f", defaultTaxValue)
+        defaultTaxField.text = NSString(format: "%.2f", defaultTaxValue) as String
         
         let defaultTipValue = defaults.doubleForKey("defaultTip")
-        defaultTipLabel.text = NSString(format: "%.2f", defaultTipValue)
+        defaultTipField.text = NSString(format: "%.2f", defaultTipValue) as String
     }
 
     override func didReceiveMemoryWarning() {
@@ -58,8 +58,9 @@ class UserViewController: UIViewController {
 //        println("Set tax to %d", defaultTaxValue)
     }
     
-    @IBAction func didTouchDone(sender: AnyObject) {
-        NSLog("didTouchDone")
+    override func viewWillDisappear(animated: Bool) {
+        //@IBAction func didTouchDone(sender: AnyObject) {
+        //    NSLog("didTouchDone")
 
         var defaults = NSUserDefaults.standardUserDefaults()
         
@@ -80,8 +81,58 @@ class UserViewController: UIViewController {
         }
 
         // Go back
-        dismissViewControllerAnimated(true, completion: nil)
+        //dismissViewControllerAnimated(true, completion: nil)
     }
+    
+    @IBAction func findMyLocation(sender: AnyObject) {
+        NSLog("use location")
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+    }
+
+    func displayLocationInfo(placemark: CLPlacemark?) {
+        if let containsPlacemark = placemark {
+            //stop updating location to save battery life
+            locationManager.stopUpdatingLocation()
+            let locality = (containsPlacemark.locality != nil) ? containsPlacemark.locality : ""
+            let postalCode = (containsPlacemark.postalCode != nil) ? containsPlacemark.postalCode : ""
+            let administrativeArea = (containsPlacemark.administrativeArea != nil) ? containsPlacemark.administrativeArea : ""
+            let country = (containsPlacemark.country != nil) ? containsPlacemark.country : ""
+            
+            NSLog("%s", locality)
+            NSLog("%d", postalCode)
+            NSLog("%s", administrativeArea)
+            NSLog("%s", country)
+        } else {
+            NSLog("no placemark")
+        }
+
+    }
+    
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        NSLog("didUpdateLocations")
+        CLGeocoder().reverseGeocodeLocation(manager.location, completionHandler: {(placemarks, error)->Void in
+            if (error != nil) {
+                println("Reverse geocoder failed with error" + error.localizedDescription)
+                return
+            }
+            
+            if placemarks.count > 0 {
+               let pm = placemarks[0] as! CLPlacemark
+               self.displayLocationInfo(pm)
+            } else {
+                println("Problem with the data received from geocoder")
+            }
+        })
+    }
+ 
+    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
+        println("Error while updating location " + error.localizedDescription)
+
+    }
+    
 
     /*
     // MARK: - Navigation

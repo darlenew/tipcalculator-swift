@@ -97,13 +97,14 @@ class ViewController: UIViewController, UserViewControllerDelegate {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if segue.identifier == "settingsSegue" {
-            let vc = segue.destinationViewController as UserViewController
+            let vc = segue.destinationViewController as! UserViewController
             vc.delegate = self
         }
     }
     
     func myVCDidFinish(controller: UserViewController, text: String) {
         // update tax and tip defaults, they may have changed in the settings
+        println("myVCDidFinish")
         setDefaultRates()
         updateTotal()
     }
