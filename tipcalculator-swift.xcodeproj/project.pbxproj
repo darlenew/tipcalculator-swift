@@ -15,6 +15,7 @@
 		297329EC1AD06911003FCE03 /* tipcalculator_swiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297329EB1AD06911003FCE03 /* tipcalculator_swiftTests.swift */; };
 		297B40FA1B80648D00061358 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 297B40F91B80648D00061358 /* CoreLocation.framework */; };
 		29B36F4D1AD11E1000166CB0 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B36F4C1AD11E1000166CB0 /* UserViewController.swift */; };
+		29BBF6CC1B8C313B005F3310 /* tipcalculator.sqlite3 in Resources */ = {isa = PBXBuildFile; fileRef = 29BBF6CB1B8C313B005F3310 /* tipcalculator.sqlite3 */; };
 		AC89555229D1754F41A4CC83 /* Pods_tipcalculator_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95329B133A2D97D31D7573FA /* Pods_tipcalculator_swift.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -43,6 +44,7 @@
 		297329EB1AD06911003FCE03 /* tipcalculator_swiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tipcalculator_swiftTests.swift; sourceTree = "<group>"; };
 		297B40F91B80648D00061358 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		29B36F4C1AD11E1000166CB0 /* UserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
+		29BBF6CB1B8C313B005F3310 /* tipcalculator.sqlite3 */ = {isa = PBXFileReference; lastKnownFileType = file; name = tipcalculator.sqlite3; path = ../tipcalculator.sqlite3; sourceTree = "<group>"; };
 		95329B133A2D97D31D7573FA /* Pods_tipcalculator_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tipcalculator_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -107,6 +109,7 @@
 		297329D21AD06911003FCE03 /* tipcalculator-swift */ = {
 			isa = PBXGroup;
 			children = (
+				29BBF6CB1B8C313B005F3310 /* tipcalculator.sqlite3 */,
 				297329D51AD06911003FCE03 /* AppDelegate.swift */,
 				297329D71AD06911003FCE03 /* ViewController.swift */,
 				297329D91AD06911003FCE03 /* Main.storyboard */,
@@ -229,6 +232,7 @@
 				297329DB1AD06911003FCE03 /* Main.storyboard in Resources */,
 				297329E01AD06911003FCE03 /* LaunchScreen.xib in Resources */,
 				297329DD1AD06911003FCE03 /* Images.xcassets in Resources */,
+				29BBF6CC1B8C313B005F3310 /* tipcalculator.sqlite3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
