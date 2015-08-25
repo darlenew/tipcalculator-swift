@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import SQLite
 
 protocol UserViewControllerDelegate{
     func myVCDidFinish(controller:UserViewController, text:String)
@@ -102,7 +103,7 @@ class UserViewController: UIViewController, CLLocationManagerDelegate {
             let country = (containsPlacemark.country != nil) ? containsPlacemark.country : ""
             
             NSLog("%s", locality)
-            NSLog("%d", postalCode)
+            NSLog("postal code:" + postalCode)
             NSLog("%s", administrativeArea)
             NSLog("%s", country)
         } else {
@@ -110,6 +111,31 @@ class UserViewController: UIViewController, CLLocationManagerDelegate {
         }
 
     }
+    
+    func updateTaxRateByPlacemark(placemark: CLPlacemark?) {
+        // update the default tax rate according to the placemark's zip code, if possible
+        var defaults = NSUserDefaults.standardUserDefaults()
+
+        // load the taxrate database
+        let path = NSBundle.mainBundle().pathForResource("tipcalculator", ofType: "sqlite3")!
+        let db = Database(path, readonly: true)
+        let taxrates = db["taxrate"]
+        let id = Expression<Int>("id")
+        let zip = Expression<Int>("zip")
+        let taxrate = Expression<Double?>("taxrate")
+
+        // find the taxrate for this zipcode
+        let zipcode = placemark?.postalCode.toInt()
+        println(zipcode)
+        let rows = taxrates.filter(zip==zipcode!)
+        for row in rows {
+            println(row[taxrate])
+            let taxValue = row[taxrate]! * 100
+            let taxString = NSString(format: "%.3f", taxValue)
+            // update the default tax field
+            defaultTaxField.text = taxString as String
+        }
+     }
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         NSLog("didUpdateLocations")
@@ -120,8 +146,9 @@ class UserViewController: UIViewController, CLLocationManagerDelegate {
             }
             
             if placemarks.count > 0 {
-               let pm = placemarks[0] as! CLPlacemark
-               self.displayLocationInfo(pm)
+                let pm = placemarks[0] as! CLPlacemark
+                self.displayLocationInfo(pm)
+                self.updateTaxRateByPlacemark(pm)
             } else {
                 println("Problem with the data received from geocoder")
             }
