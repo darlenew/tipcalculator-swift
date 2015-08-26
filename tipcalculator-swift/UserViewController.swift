@@ -17,9 +17,9 @@ protocol UserViewControllerDelegate{
 class UserViewController: UIViewController, CLLocationManagerDelegate {
     var delegate:UserViewControllerDelegate? = nil
     let locationManager = CLLocationManager()
-    var foo = "foo" // TODO get rid of this
     @IBOutlet weak var defaultTipField: UITextField!
     @IBOutlet weak var defaultTaxField: UITextField!
+    @IBOutlet weak var defaultCurrencySymbol: UITextField!
     
 
     override func viewDidLoad() {
@@ -35,6 +35,10 @@ class UserViewController: UIViewController, CLLocationManagerDelegate {
         
         let defaultTipValue = defaults.doubleForKey("defaultTip")
         defaultTipField.text = NSString(format: "%.2f", defaultTipValue) as String
+        
+//        if let defaultLocale = defaults.objectForKey("defaultLocale") as? NSLocale {
+//            defaultCurrencySymbol.text = (defaultLocale.objectForKey(NSLocaleCurrencySymbol)) as! String
+//        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -73,10 +77,12 @@ class UserViewController: UIViewController, CLLocationManagerDelegate {
         defaults.setDouble(defaultTipValue, forKey: "defaultTip")
         println("Set tip to %d", defaultTipValue)
 
+        let localeIdentifier = defaults.objectForKey("defaultLocale") as! String
+            
         defaults.synchronize()
         if (delegate != nil) {
             println("delegate is not nil")
-            delegate!.myVCDidFinish(self, text: foo)
+            delegate!.myVCDidFinish(self, text: localeIdentifier)
         } else {
             println("delegate is nil")
         }
@@ -102,10 +108,11 @@ class UserViewController: UIViewController, CLLocationManagerDelegate {
             let administrativeArea = (containsPlacemark.administrativeArea != nil) ? containsPlacemark.administrativeArea : ""
             let country = (containsPlacemark.country != nil) ? containsPlacemark.country : ""
             
-            NSLog("%s", locality)
+            NSLog("locality: " + locality)
             NSLog("postal code:" + postalCode)
-            NSLog("%s", administrativeArea)
-            NSLog("%s", country)
+            NSLog("administrativeArea: " + administrativeArea)
+            NSLog("country: " + country)
+            NSLog(containsPlacemark.ISOcountryCode)
         } else {
             NSLog("no placemark")
         }
@@ -125,17 +132,47 @@ class UserViewController: UIViewController, CLLocationManagerDelegate {
         let taxrate = Expression<Double?>("taxrate")
 
         // find the taxrate for this zipcode
-        let zipcode = placemark?.postalCode.toInt()
-        println(zipcode)
-        let rows = taxrates.filter(zip==zipcode!)
-        for row in rows {
-            println(row[taxrate])
-            let taxValue = row[taxrate]! * 100
-            let taxString = NSString(format: "%.3f", taxValue)
-            // update the default tax field
-            defaultTaxField.text = taxString as String
+        if let zipcode = placemark?.postalCode.toInt() {
+            println(zipcode)
+            let rows = taxrates.filter(zip==zipcode)
+            for row in rows {
+                println(row[taxrate])
+                let taxValue = row[taxrate]! * 100
+                let taxString = NSString(format: "%.3f", taxValue)
+                // update the default tax field
+                defaultTaxField.text = taxString as String
+            }
         }
      }
+    
+    func updateCurrencySymbolByPlacemark(placemark: CLPlacemark?) {
+        var defaults = NSUserDefaults.standardUserDefaults()
+
+        if let pm = placemark {
+            NSLog("Updating placemark for ISOCountryCode " + pm.ISOcountryCode)
+            // maybe store ISOCountryCode in defaults
+            var formatter = NSNumberFormatter()
+            formatter.numberStyle = .CurrencyStyle
+            formatter.locale = NSLocale(localeIdentifier: "\(pm.ISOcountryCode)")
+            NSLog(formatter.stringFromNumber(14.95)!)
+
+            // try again
+            let countryCode = pm.ISOcountryCode
+            let components = NSDictionary(object: countryCode, forKey: NSLocaleCountryCode)
+            //let localeIdentifier = NSLocale.localeIdentifierFromComponents(components)
+            let localeIdentifier = NSLocale.localeIdentifierFromComponents([NSLocaleCountryCode: countryCode])
+            let locale = NSLocale(localeIdentifier: localeIdentifier)
+            println(locale.objectForKey(NSLocaleCurrencySymbol))
+            formatter.locale = locale
+            NSLog(formatter.stringFromNumber(1021.0)!)
+
+            // store locale in defaults
+            println(locale.localeIdentifier)
+            defaults.setObject(locale.localeIdentifier, forKey: "defaultLocale")
+            
+            
+        }
+    }
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         NSLog("didUpdateLocations")
@@ -149,6 +186,7 @@ class UserViewController: UIViewController, CLLocationManagerDelegate {
                 let pm = placemarks[0] as! CLPlacemark
                 self.displayLocationInfo(pm)
                 self.updateTaxRateByPlacemark(pm)
+                self.updateCurrencySymbolByPlacemark(pm)
             } else {
                 println("Problem with the data received from geocoder")
             }

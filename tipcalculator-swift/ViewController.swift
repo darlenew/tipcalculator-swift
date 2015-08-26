@@ -24,26 +24,43 @@ class ViewController: UIViewController, UserViewControllerDelegate {
         var defaults = NSUserDefaults.standardUserDefaults()
         let defaultTaxValue = defaults.doubleForKey("defaultTax")
         let defaultTipValue = defaults.doubleForKey("defaultTip")
+//        var formatter = NSNumberFormatter()
+//        var mylocale: String
+        
         println(defaultTaxValue)
         println(defaultTipValue)
         taxStepper.value = defaultTaxValue
         tipStepper.value = defaultTipValue
-        taxSliderLabel.text = String(format: "%.2f%%", taxStepper.value)
-        tipSliderLabel.text = String(format: "%.2f%%", tipStepper.value)
+        
+//        formatter.numberStyle = .CurrencyStyle
+//        formatter.locale = NSLocale(localeIdentifier: mylocale)
+//        println("mylocale " + mylocale)
         
         taxSliderLabel.text = String(format: "%.2f%%", taxStepper.value)
         tipSliderLabel.text = String(format: "%.2f%%", tipStepper.value)
-
+        
         println("finished setting up defaults")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         println("viewDidLoad")
+        
         // Do any additional setup after loading the view, typically from a nib.
-        taxLabel.text = "$0.00"
-        tipLabel.text = "$0.00"
-        totalLabel.text = "$0.00"
+        var defaults = NSUserDefaults.standardUserDefaults()
+        var formatter = NSNumberFormatter()
+        var mylocale: String
+        if (defaults.objectForKey("defaultLocale") != nil) {
+            mylocale = defaults.objectForKey("defaultLocale") as! String
+        } else {
+            mylocale = "en_US" // default
+        }
+        formatter.numberStyle = .CurrencyStyle
+        formatter.locale = NSLocale(localeIdentifier: mylocale)
+
+        taxLabel.text = formatter.stringFromNumber(0)! // "$0.00"
+        tipLabel.text = formatter.stringFromNumber(0)! // "$0.00"
+        totalLabel.text = formatter.stringFromNumber(0)! //"$0.00"
         setDefaultRates()
     }
 
@@ -52,7 +69,7 @@ class ViewController: UIViewController, UserViewControllerDelegate {
         // Dispose of any resources that can be recreated.
     }
 
-    func updateTotal() {
+    func updateTotal(locale: String?) {
         var billAmount = (billField.text as NSString).doubleValue
         
         let taxPercentage = taxStepper.value / 100
@@ -63,32 +80,37 @@ class ViewController: UIViewController, UserViewControllerDelegate {
         
         var total = billAmount + taxAmount + tipAmount
         
+        // get the currency formatter for the locale
+        var formatter = NSNumberFormatter()
+        formatter.numberStyle = .CurrencyStyle
+        if (locale != nil) {
+            println("updateTotal by locale " + locale!)
+            formatter.locale = NSLocale(localeIdentifier: locale!)
+        } else {
+            println("updateTotal by default locale")
+            formatter.locale = NSLocale(localeIdentifier: "en_US")
+        }
         // fancier string formatting
-        taxLabel.text = String(format: "$%.2f", taxAmount)
-        tipLabel.text = String(format: "$%.2f", tipAmount)
-        totalLabel.text = String(format: "$%.2f", total)
+        taxLabel.text = formatter.stringFromNumber(taxAmount) //String(format: "$%.2f", taxAmount)
+        tipLabel.text = formatter.stringFromNumber(tipAmount) //String(format: "$%.2f", tipAmount)
+        totalLabel.text = formatter.stringFromNumber(total) //String(format: "$%.2f", total)
         println("updateTotal finished")
     }
     
     @IBAction func onEditingChanged(sender: AnyObject) {
-        // array of tip percentages
-//        var tipPercentages = [0.18, 0.2, 0.22]
-//        var tipPercentage = tipPercentages[tipControl.selectedSegmentIndex]
-        
         println("onEditingChanged")
         setDefaultRates()
-
-        updateTotal()
+        updateTotal(nil)
     }
 
     @IBAction func tipStepperChanged(sender: AnyObject) {
         tipSliderLabel.text = String(format: "(%.2f)", tipStepper.value)
-        updateTotal()
+        updateTotal(nil)
 
     }
     @IBAction func taxStepperChanged(sender: AnyObject) {
         taxSliderLabel.text = String(format: "(%.2f)", taxStepper.value)
-        updateTotal()
+        updateTotal(nil)
     }
     
     @IBAction func onTap(sender: AnyObject) {
@@ -106,7 +128,7 @@ class ViewController: UIViewController, UserViewControllerDelegate {
         // update tax and tip defaults, they may have changed in the settings
         println("myVCDidFinish")
         setDefaultRates()
-        updateTotal()
+        updateTotal(text)
     }
 }
 
