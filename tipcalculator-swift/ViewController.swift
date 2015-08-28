@@ -19,11 +19,14 @@ class ViewController: UIViewController, UserViewControllerDelegate {
     @IBOutlet weak var tipStepper: UIStepper!
     @IBOutlet weak var taxSliderLabel: UILabel!
     @IBOutlet weak var tipSliderLabel: UILabel!
+    var locale: String!
     
     func setDefaultRates() {
         var defaults = NSUserDefaults.standardUserDefaults()
         let defaultTaxValue = defaults.doubleForKey("defaultTax")
         let defaultTipValue = defaults.doubleForKey("defaultTip")
+        self.locale = defaults.stringForKey("defaultLocale")
+        
 //        var formatter = NSNumberFormatter()
 //        var mylocale: String
         
@@ -53,8 +56,9 @@ class ViewController: UIViewController, UserViewControllerDelegate {
         if (defaults.objectForKey("defaultLocale") != nil) {
             mylocale = defaults.objectForKey("defaultLocale") as! String
         } else {
-            mylocale = "en_US" // default
+            mylocale = "en_US" // default locale
         }
+        self.locale = mylocale
         formatter.numberStyle = .CurrencyStyle
         formatter.locale = NSLocale(localeIdentifier: mylocale)
 
@@ -69,7 +73,7 @@ class ViewController: UIViewController, UserViewControllerDelegate {
         // Dispose of any resources that can be recreated.
     }
 
-    func updateTotal(locale: String?) {
+    func updateTotal() {
         var billAmount = (billField.text as NSString).doubleValue
         
         let taxPercentage = taxStepper.value / 100
@@ -83,9 +87,9 @@ class ViewController: UIViewController, UserViewControllerDelegate {
         // get the currency formatter for the locale
         var formatter = NSNumberFormatter()
         formatter.numberStyle = .CurrencyStyle
-        if (locale != nil) {
-            println("updateTotal by locale " + locale!)
-            formatter.locale = NSLocale(localeIdentifier: locale!)
+        if (self.locale != nil) {
+            println("updateTotal by locale " + self.locale)
+            formatter.locale = NSLocale(localeIdentifier: self.locale)
         } else {
             println("updateTotal by default locale")
             formatter.locale = NSLocale(localeIdentifier: "en_US")
@@ -100,17 +104,17 @@ class ViewController: UIViewController, UserViewControllerDelegate {
     @IBAction func onEditingChanged(sender: AnyObject) {
         println("onEditingChanged")
         setDefaultRates()
-        updateTotal(nil)
+        updateTotal()
     }
 
     @IBAction func tipStepperChanged(sender: AnyObject) {
         tipSliderLabel.text = String(format: "(%.2f)", tipStepper.value)
-        updateTotal(nil)
+        updateTotal()
 
     }
     @IBAction func taxStepperChanged(sender: AnyObject) {
         taxSliderLabel.text = String(format: "(%.2f)", taxStepper.value)
-        updateTotal(nil)
+        updateTotal()
     }
     
     @IBAction func onTap(sender: AnyObject) {
@@ -124,11 +128,11 @@ class ViewController: UIViewController, UserViewControllerDelegate {
         }
     }
     
-    func myVCDidFinish(controller: UserViewController, text: String) {
+    func myVCDidFinish(controller: UserViewController) {
         // update tax and tip defaults, they may have changed in the settings
         println("myVCDidFinish")
         setDefaultRates()
-        updateTotal(text)
+        updateTotal()
     }
 }
 

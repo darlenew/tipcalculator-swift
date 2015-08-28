@@ -11,7 +11,7 @@ import CoreLocation
 import SQLite
 
 protocol UserViewControllerDelegate{
-    func myVCDidFinish(controller:UserViewController, text:String)
+    func myVCDidFinish(controller:UserViewController)
 }
 
 class UserViewController: UIViewController, CLLocationManagerDelegate {
@@ -19,9 +19,8 @@ class UserViewController: UIViewController, CLLocationManagerDelegate {
     let locationManager = CLLocationManager()
     @IBOutlet weak var defaultTipField: UITextField!
     @IBOutlet weak var defaultTaxField: UITextField!
-    @IBOutlet weak var defaultCurrencySymbol: UITextField!
+    @IBOutlet weak var currencySymbol: UILabel!
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -36,31 +35,15 @@ class UserViewController: UIViewController, CLLocationManagerDelegate {
         let defaultTipValue = defaults.doubleForKey("defaultTip")
         defaultTipField.text = NSString(format: "%.2f", defaultTipValue) as String
         
-//        if let defaultLocale = defaults.objectForKey("defaultLocale") as? NSLocale {
-//            defaultCurrencySymbol.text = (defaultLocale.objectForKey(NSLocaleCurrencySymbol)) as! String
-//        }
+        if let defaultLocale = defaults.stringForKey("defaultLocale") {
+            let locale = NSLocale(localeIdentifier: defaultLocale)
+            currencySymbol.text = locale.objectForKey(NSLocaleCurrencySymbol) as? String
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    @IBAction func didEditTip(sender: AnyObject) {
-//        var defaults = NSUserDefaults.standardUserDefaults()
-//        
-//        let defaultTipValue = (defaultTipField.text as NSString).doubleValue
-//        defaults.setDouble(defaultTipValue, forKey: "defaultTip")
-//        defaults.synchronize()
-//        println("Set tip to %d", defaultTipValue)
-    }
-    
-    @IBAction func didEditTax(sender: AnyObject) {
-//        var defaults = NSUserDefaults.standardUserDefaults()
-//        
-//        let defaultTaxValue = (defaultTaxField.text as NSString).doubleValue
-//        defaults.setDouble(defaultTaxValue, forKey: "defaultTax")
-//        defaults.synchronize()
-//        println("Set tax to %d", defaultTaxValue)
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -69,20 +52,20 @@ class UserViewController: UIViewController, CLLocationManagerDelegate {
 
         var defaults = NSUserDefaults.standardUserDefaults()
         
+        // set default tax
         let defaultTaxValue = (defaultTaxField.text as NSString).doubleValue
         defaults.setDouble(defaultTaxValue, forKey: "defaultTax")
         println("Set tax to %d", defaultTaxValue)
 
+        // set default tip
         let defaultTipValue = (defaultTipField.text as NSString).doubleValue
         defaults.setDouble(defaultTipValue, forKey: "defaultTip")
         println("Set tip to %d", defaultTipValue)
 
-        let localeIdentifier = defaults.objectForKey("defaultLocale") as! String
-            
         defaults.synchronize()
         if (delegate != nil) {
             println("delegate is not nil")
-            delegate!.myVCDidFinish(self, text: localeIdentifier)
+            delegate!.myVCDidFinish(self)
         } else {
             println("delegate is nil")
         }
@@ -123,7 +106,8 @@ class UserViewController: UIViewController, CLLocationManagerDelegate {
         // update the default tax rate according to the placemark's zip code, if possible
         var defaults = NSUserDefaults.standardUserDefaults()
 
-        // load the taxrate database
+        // load the taxrate database 
+        // TODO: switch to json table, this database is overkill
         let path = NSBundle.mainBundle().pathForResource("tipcalculator", ofType: "sqlite3")!
         let db = Database(path, readonly: true)
         let taxrates = db["taxrate"]
@@ -131,10 +115,12 @@ class UserViewController: UIViewController, CLLocationManagerDelegate {
         let zip = Expression<Int>("zip")
         let taxrate = Expression<Double?>("taxrate")
 
+        println(placemark?.postalCode)
+            
         // find the taxrate for this zipcode
-        if let zipcode = placemark?.postalCode.toInt() {
+        if let zipcode = placemark?.postalCode {
             println(zipcode)
-            let rows = taxrates.filter(zip==zipcode)
+            let rows = taxrates.filter(zip==zipcode.toInt()!)
             for row in rows {
                 println(row[taxrate])
                 let taxValue = row[taxrate]! * 100
@@ -150,30 +136,18 @@ class UserViewController: UIViewController, CLLocationManagerDelegate {
 
         if let pm = placemark {
             NSLog("Updating placemark for ISOCountryCode " + pm.ISOcountryCode)
-            // maybe store ISOCountryCode in defaults
-            var formatter = NSNumberFormatter()
-            formatter.numberStyle = .CurrencyStyle
-            formatter.locale = NSLocale(localeIdentifier: "\(pm.ISOcountryCode)")
-            NSLog(formatter.stringFromNumber(14.95)!)
-
-            // try again
             let countryCode = pm.ISOcountryCode
-            let components = NSDictionary(object: countryCode, forKey: NSLocaleCountryCode)
-            //let localeIdentifier = NSLocale.localeIdentifierFromComponents(components)
             let localeIdentifier = NSLocale.localeIdentifierFromComponents([NSLocaleCountryCode: countryCode])
             let locale = NSLocale(localeIdentifier: localeIdentifier)
-            println(locale.objectForKey(NSLocaleCurrencySymbol))
-            formatter.locale = locale
-            NSLog(formatter.stringFromNumber(1021.0)!)
 
-            // store locale in defaults
+            // store locale in defaults and update displayed currency symbol
             println(locale.localeIdentifier)
             defaults.setObject(locale.localeIdentifier, forKey: "defaultLocale")
-            
-            
+            currencySymbol.text = locale.objectForKey(NSLocaleCurrencySymbol) as? String
         }
     }
     
+    // TODO use a map to select location to override the current location
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         NSLog("didUpdateLocations")
         CLGeocoder().reverseGeocodeLocation(manager.location, completionHandler: {(placemarks, error)->Void in
