@@ -108,12 +108,12 @@ class ViewController: UIViewController, UserViewControllerDelegate {
     }
 
     @IBAction func tipStepperChanged(sender: AnyObject) {
-        tipSliderLabel.text = String(format: "(%.2f)", tipStepper.value)
+        tipSliderLabel.text = String(format: "%.2f%%", tipStepper.value)
         updateTotal()
 
     }
     @IBAction func taxStepperChanged(sender: AnyObject) {
-        taxSliderLabel.text = String(format: "(%.2f)", taxStepper.value)
+        taxSliderLabel.text = String(format: "%.3f%%", taxStepper.value)
         updateTotal()
     }
     

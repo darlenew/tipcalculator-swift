@@ -30,10 +30,10 @@ class UserViewController: UIViewController, CLLocationManagerDelegate {
         defaults.synchronize()
         
         let defaultTaxValue = defaults.doubleForKey("defaultTax")
-        defaultTaxField.text = NSString(format: "%.2f", defaultTaxValue) as String
+        defaultTaxField.text = NSString(format: "%.3f%%", defaultTaxValue) as String
         
         let defaultTipValue = defaults.doubleForKey("defaultTip")
-        defaultTipField.text = NSString(format: "%.2f", defaultTipValue) as String
+        defaultTipField.text = NSString(format: "%.2f%%", defaultTipValue) as String
         
         if let defaultLocale = defaults.stringForKey("defaultLocale") {
             let locale = NSLocale(localeIdentifier: defaultLocale)
@@ -64,14 +64,8 @@ class UserViewController: UIViewController, CLLocationManagerDelegate {
 
         defaults.synchronize()
         if (delegate != nil) {
-            println("delegate is not nil")
             delegate!.myVCDidFinish(self)
-        } else {
-            println("delegate is nil")
         }
-
-        // Go back
-        //dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func findMyLocation(sender: AnyObject) {
@@ -116,18 +110,21 @@ class UserViewController: UIViewController, CLLocationManagerDelegate {
         let taxrate = Expression<Double?>("taxrate")
 
         println(placemark?.postalCode)
-            
-        // find the taxrate for this zipcode
-        if let zipcode = placemark?.postalCode {
-            println(zipcode)
-            let rows = taxrates.filter(zip==zipcode.toInt()!)
-            for row in rows {
-                println(row[taxrate])
-                let taxValue = row[taxrate]! * 100
-                let taxString = NSString(format: "%.3f", taxValue)
-                // update the default tax field
-                defaultTaxField.text = taxString as String
+        println(placemark?.ISOcountryCode)
+        
+        if (placemark!.ISOcountryCode == "US") {
+            // find the taxrate for this zipcode
+            if let zipcode = placemark?.postalCode {
+                let rows = taxrates.filter(zip==zipcode.toInt()!)
+                for row in rows {
+                    let taxValue = row[taxrate]! * 100
+                    let taxString = NSString(format: "%.3f%%", taxValue)
+                    // update the default tax field
+                    defaultTaxField.text = taxString as String
+                }
             }
+        } else {
+            defaultTaxField.text = NSString(format: "%.3f%%", 0) as String
         }
      }
     
