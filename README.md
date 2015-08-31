@@ -26,6 +26,8 @@ Completed user stories:
 3. Build the tipcalculator-swift app.
 
 ## Screencasts
+The following 3 screencasts demonstrate the usage of the app.  The screencasts were made with 3 different schemes.  The Honolulu and New York schemes show the tax rate changes when set by location.  The England scheme shows that the currency symbol may change when using this app from a location outside the U.S.
+
 ![Alt text](/screenshots/tipcalculator-swift-honolulu.gif?raw=true "Honolulu Scheme")
 ![Alt text](/screenshots/tipcalculator-swift-england.gif?raw=true "England Scheme")
 ![Alt text](/screenshots/tipcalculator-swift-nyc.gif?raw=true "New York City Scheme")
