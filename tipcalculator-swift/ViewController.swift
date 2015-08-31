@@ -66,6 +66,8 @@ class ViewController: UIViewController, UserViewControllerDelegate {
         tipLabel.text = formatter.stringFromNumber(0)! // "$0.00"
         totalLabel.text = formatter.stringFromNumber(0)! //"$0.00"
         setDefaultRates()
+        
+        updateDefaultTheme(self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -133,6 +135,18 @@ class ViewController: UIViewController, UserViewControllerDelegate {
         println("myVCDidFinish")
         setDefaultRates()
         updateTotal()
+        
+        // update theme
+        updateDefaultTheme(self)
+        
+//        UIView.appearance().tintColor = UIColor(red:0.0, green:0.0, blue:0.0, alpha:0.5)
+//        UITextField.appearance().textColor = UIColor.orangeColor()
+//        UILabel.appearance().textColor = UIColor.orangeColor()
+//        UIButton.appearance().titleLabel?.textColor = UIColor.orangeColor()
+//        
+//        self.view.tintColor = UIColor.blackColor()
+//        self.view.backgroundColor = UIColor.blackColor()
+
     }
 }
 

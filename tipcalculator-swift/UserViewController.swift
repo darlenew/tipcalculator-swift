@@ -20,11 +20,17 @@ class UserViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var defaultTipField: UITextField!
     @IBOutlet weak var defaultTaxField: UITextField!
     @IBOutlet weak var currencySymbol: UILabel!
+    @IBOutlet weak var darkThemeSwitch: UISwitch!
+    @IBOutlet weak var taxRateLabel: UILabel!
+    @IBOutlet weak var tipRateLabel: UILabel!
+    @IBOutlet weak var darkThemeLabel: UILabel!
+    @IBOutlet weak var locationButton: UIButton!
+    @IBOutlet weak var currencySymbolLabel: UILabel!
+    @IBOutlet weak var currencySymbolField: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-
         // Load the default values
         var defaults = NSUserDefaults.standardUserDefaults()
         defaults.synchronize()
@@ -39,11 +45,48 @@ class UserViewController: UIViewController, CLLocationManagerDelegate {
             let locale = NSLocale(localeIdentifier: defaultLocale)
             currencySymbol.text = locale.objectForKey(NSLocaleCurrencySymbol) as? String
         }
-    }
 
+        if let defaultTheme = defaults.stringForKey("defaultTheme") {
+            if defaultTheme == "sfo" {
+               darkThemeSwitch.on = true
+            } else {
+                darkThemeSwitch.on = false
+            }
+        }
+        updateDefaultTheme(self)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func darkThemeSwitchChanged(sender: AnyObject) {
+        var defaults = NSUserDefaults.standardUserDefaults()
+        var foreground: UIColor
+        
+        if darkThemeSwitch.on {
+            defaults.setObject("sfo", forKey: "defaultTheme")
+            updateTheme(self, "sfo")
+            foreground = UIColor.orangeColor()
+        } else {
+            defaults.setObject("oak", forKey: "defaultTheme")
+            updateTheme(self, "oak")
+            foreground = UIColor.greenColor()
+        }
+        defaults.synchronize()
+        locationButton.titleLabel?.textColor = foreground
+        locationButton.setTitleColor(foreground, forState: .Normal)
+        currencySymbolLabel.textColor = foreground
+        currencySymbol.textColor = foreground
+        taxRateLabel.textColor = foreground
+        defaultTaxField.textColor = foreground
+        tipRateLabel.textColor = foreground
+        defaultTipField.textColor = foreground
+        darkThemeLabel.textColor = foreground
+        
+        
+
     }
     
     override func viewWillDisappear(animated: Bool) {

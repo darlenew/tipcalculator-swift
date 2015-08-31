@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		295BE3151B93F69400BBAE26 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295BE3141B93F69400BBAE26 /* Utilities.swift */; };
 		297329D61AD06911003FCE03 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297329D51AD06911003FCE03 /* AppDelegate.swift */; };
 		297329D81AD06911003FCE03 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297329D71AD06911003FCE03 /* ViewController.swift */; };
 		297329DB1AD06911003FCE03 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 297329D91AD06911003FCE03 /* Main.storyboard */; };
@@ -32,6 +33,7 @@
 /* Begin PBXFileReference section */
 		04A37CE93346B7E89F74FE3C /* Pods-tipcalculator-swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tipcalculator-swift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tipcalculator-swift/Pods-tipcalculator-swift.debug.xcconfig"; sourceTree = "<group>"; };
 		04FB5FA981EC949D96C7F8A5 /* Pods-tipcalculator-swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tipcalculator-swift.release.xcconfig"; path = "Pods/Target Support Files/Pods-tipcalculator-swift/Pods-tipcalculator-swift.release.xcconfig"; sourceTree = "<group>"; };
+		295BE3141B93F69400BBAE26 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		297329D01AD06911003FCE03 /* tipcalculator-swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tipcalculator-swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		297329D41AD06911003FCE03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		297329D51AD06911003FCE03 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				297329D71AD06911003FCE03 /* ViewController.swift */,
 				297329D91AD06911003FCE03 /* Main.storyboard */,
 				29B36F4C1AD11E1000166CB0 /* UserViewController.swift */,
+				295BE3141B93F69400BBAE26 /* Utilities.swift */,
 				297329DC1AD06911003FCE03 /* Images.xcassets */,
 				297329DE1AD06911003FCE03 /* LaunchScreen.xib */,
 				297329D31AD06911003FCE03 /* Supporting Files */,
@@ -300,6 +303,7 @@
 			files = (
 				297329D81AD06911003FCE03 /* ViewController.swift in Sources */,
 				29B36F4D1AD11E1000166CB0 /* UserViewController.swift in Sources */,
+				295BE3151B93F69400BBAE26 /* Utilities.swift in Sources */,
 				297329D61AD06911003FCE03 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
