@@ -32,7 +32,7 @@ func updateTheme(vc: UIViewController, theme: String) {
 
     UIButton.appearance().titleLabel?.textColor = foreground
     UIButton.appearance().setTitleColor(foreground, forState: .Normal)
-    UIButton.appearance().layer.borderWidth = 2.0
+    UIButton.appearance().layer.borderWidth = 1.0
     UIButton.appearance().layer.borderColor = foreground.CGColor
 
     UIStepper.appearance().tintColor = foreground    

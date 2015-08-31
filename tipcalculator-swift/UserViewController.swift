@@ -46,11 +46,17 @@ class UserViewController: UIViewController, CLLocationManagerDelegate {
             currencySymbol.text = locale.objectForKey(NSLocaleCurrencySymbol) as? String
         }
 
+        // TODO: use UIPickerView instead of the switch to add more themes
+        // for some reason updateDefaultTheme() doesn't change the button style
+        locationButton.layer.borderWidth = 1
+        locationButton.layer.cornerRadius = 5.0
         if let defaultTheme = defaults.stringForKey("defaultTheme") {
             if defaultTheme == "sfo" {
                darkThemeSwitch.on = true
+               locationButton.layer.borderColor = UIColor.orangeColor().CGColor
             } else {
                 darkThemeSwitch.on = false
+                locationButton.layer.borderColor = UIColor.greenColor().CGColor
             }
         }
         updateDefaultTheme(self)
@@ -77,6 +83,9 @@ class UserViewController: UIViewController, CLLocationManagerDelegate {
         defaults.synchronize()
         locationButton.titleLabel?.textColor = foreground
         locationButton.setTitleColor(foreground, forState: .Normal)
+        locationButton.layer.borderWidth = 1
+        locationButton.layer.borderColor = foreground.CGColor
+
         currencySymbolLabel.textColor = foreground
         currencySymbol.textColor = foreground
         taxRateLabel.textColor = foreground
